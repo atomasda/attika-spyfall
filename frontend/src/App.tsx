@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { io, Socket } from 'socket.io-client'
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL ||
-  (window.location.hostname === 'localhost'
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3001'
     : `http://${window.location.hostname}:3001`);
 
@@ -129,15 +129,31 @@ function Lobby() {
   const handleJoin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!roomId.trim() || !nickname.trim()) return;
+    
+    console.log('Connecting to:', SOCKET_URL);
     sessionStorage.setItem('nickname', nickname);
-    const newSocket = io(SOCKET_URL);
+    
+    const newSocket = io(SOCKET_URL, {
+      transports: ['websocket'],
+      reconnectionAttempts: 5,
+      timeout: 10000
+    });
+    
     setSocket(newSocket);
+
+    newSocket.on('connect_error', (err) => {
+      console.error('Socket Connection Error:', err.message);
+      alert(`Connection failed to ${SOCKET_URL}. Please check your environment variables or network.`);
+    });
+
     newSocket.emit('join_room', { roomId, nickname }, (response: { success: boolean, players: Player[], status: string }) => {
       if (response.success) {
         setJoined(true);
         setPlayers(response.players);
         setGameState(response.status as any);
         setSearchParams({ room: roomId });
+      } else {
+        alert('Failed to join room. It might be full or inactive.');
       }
     });
   };
