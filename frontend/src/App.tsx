@@ -36,6 +36,7 @@ function Lobby() {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [eliminated, setEliminated] = useState<string[]>([]);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showRules, setShowRules] = useState(false);
 
   // Guess State
   const [showGuessModal, setShowGuessModal] = useState(false);
@@ -226,6 +227,24 @@ function Lobby() {
         </div>
       )}
 
+      {/* Rules Modal */}
+      {showRules && (
+        <div className="modal-overlay" style={{ zIndex: 10000 }}>
+          <div className="modal-content pop-anim">
+            <h2 className="mb-4" style={{ color: 'var(--color-matcha-deep)', textAlign: 'center' }}>{t('rules_title')}</h2>
+            <div style={{ textAlign: 'left', marginBottom: '24px' }}>
+              <ul style={{ paddingLeft: '20px', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', lineHeight: '1.5' }}>
+                <li>{t('rule_1')}</li>
+                <li>{t('rule_2')}</li>
+                <li>{t('rule_3')}</li>
+                <li>{t('rule_4')}</li>
+              </ul>
+            </div>
+            <button className="primary-btn" onClick={() => setShowRules(false)}>Got it!</button>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', maxWidth: '400px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'bold', fontSize: '20px', color: 'var(--color-matcha-deep)' }}>
@@ -237,7 +256,8 @@ function Lobby() {
              <>☕ SPYFALL</>
           ))}
         </div>
-        <div style={{ display: 'flex', gap: '4px' }}>
+        <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+          <button className="secondary-btn" style={{ padding: '6px 10px', fontSize: '12px', background: 'var(--color-matcha-light)', color: 'var(--color-matcha-deep)' }} onClick={() => setShowRules(true)}>{t('how_to_play')}</button>
           <button className="secondary-btn" style={{ padding: '6px 10px', fontSize: '12px' }} onClick={() => i18n.changeLanguage('th')}>TH</button>
           <button className="secondary-btn" style={{ padding: '6px 10px', fontSize: '12px' }} onClick={() => i18n.changeLanguage('en')}>EN</button>
           <button className="secondary-btn" style={{ padding: '6px 10px', fontSize: '12px' }} onClick={() => i18n.changeLanguage('zh')}>ZH</button>

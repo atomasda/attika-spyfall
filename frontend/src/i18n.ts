@@ -37,10 +37,14 @@ const resources = {
       "leave_room": "Leave Room",
       "game_in_progress": "Game in Progress ⏳",
       "please_wait": "The game has already started. Please wait here for the current round to finish!",
-      "welcome_title": "Welcome to Attika!",
-      "welcome_body": "This web app was made for ice breaking among the lovely customers of Attika Studio.",
       "welcome_footer": "Enjoy the night!",
-      "welcome_btn": "Let's Play! 🎮"
+      "welcome_btn": "Let's Play! 🎮",
+      "how_to_play": "How to Play",
+      "rules_title": "Game Rules",
+      "rule_1": "Everyone receives the same location and role, except the Spy who knows nothing.",
+      "rule_2": "Players ask questions to find the Spy without revealing the location.",
+      "rule_3": "The Spy must blend in and try to guess the location from conversation.",
+      "rule_4": "Players win by catching the Spy; Spy wins by guessing the location or time out."
     }
   },
   th: {
@@ -78,10 +82,15 @@ const resources = {
       "leave_room": "ออกจากห้อง",
       "game_in_progress": "เกมกำลังเริ่มอยู่ ⏳",
       "please_wait": "ผู้เล่นอื่นกำลังเล่นอยู่ตอนนี้ โปรดรอก่อนเพื่อให้จบรอบนี้แล้วเริ่มเล่นพร้อมกันในรอบหน้า!",
-      "welcome_title": "Welcome to Attika!",
       "welcome_body": "ผมทำเว็บนี้เพื่อเป็น Ice Breaking แก่ลูกค้า Attika Studio ที่น่ารักของเราทุกคน",
       "welcome_footer": "ขอให้ทุกคน Enjoy the night!",
-      "welcome_btn": "เล่นเลย! 🎮"
+      "welcome_btn": "เล่นเลย! 🎮",
+      "how_to_play": "วิธีเล่น",
+      "rules_title": "กติกาวงเหล้า",
+      "rule_1": "ทุกคนจะได้รับสถานที่เดียวกัน ยกเว้นสปายที่จะไม่รู้ว่าอยู่ที่ไหน",
+      "rule_2": "พลเรือนต้องถามคำถามเพื่อหาตัวสปาย แต่ห้ามหลุดชื่อสถานที่เด็ดขาด!",
+      "rule_3": "สปายต้องเนียนไปกับกลุ่ม และพยายามเดาสถานที่จากคำถามเพื่อน",
+      "rule_4": "พลเรือนชนะเมื่อโหวตสปายถูก; สปายชนะเมื่อทายสถานที่ถูกหรือพลเรือนแพ้"
     }
   },
   zh: {
@@ -122,7 +131,13 @@ const resources = {
       "welcome_title": "Welcome to Attika!",
       "welcome_body": "我制作这个网站是为了帮助 Attika Studio 可爱的客户们打破居面（Ice Breaking）。",
       "welcome_footer": "祝大家度过美好的喑夜！",
-      "welcome_btn": "开始游戏! 🎮"
+      "welcome_btn": "开始游戏! 🎮",
+      "how_to_play": "玩法说明",
+      "rules_title": "游戏规则",
+      "rule_1": "每个人都会收到相同的“地点”和“角色”，唯独卧底不知道。",
+      "rule_2": "平民必须通过提问来找出卧底，但不能泄露地点信息！",
+      "rule_3": "卧底必须潜伏在人群中，并试图从大家的谈话中猜出地点。",
+      "rule_4": "平民抓获卧底则胜，卧底猜对地点或平民人数少于卧底则胜。"
     }
   }
 };
