@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route, useNavigate, useSearchParams } from 'reac
 import { useTranslation } from 'react-i18next'
 import { io, Socket } from 'socket.io-client'
 
-const SOCKET_URL = window.location.hostname === 'localhost'
-  ? 'http://localhost:3001'
-  : `http://${window.location.hostname}:3001`;
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL ||
+  (window.location.hostname === 'localhost'
+    ? 'http://localhost:3001'
+    : `http://${window.location.hostname}:3001`);
 
 type Player = {
   id: string;
