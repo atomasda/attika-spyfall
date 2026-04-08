@@ -35,8 +35,11 @@ function Lobby() {
   const [votes, setVotes] = useState<Record<string, string>>({});
   const [endTime, setEndTime] = useState<number | null>(null);
   const [eliminated, setEliminated] = useState<string[]>([]);
-  const [showWelcome, setShowWelcome] = useState(true);
-  const [showRules, setShowRules] = useState(false);
+   const [showWelcome, setShowWelcome] = useState(true);
+   const [showRules, setShowRules] = useState(false);
+   const [disabledLocationIds, setDisabledLocationIds] = useState<string[]>([]);
+   const [allLocations, setAllLocations] = useState<any[]>([]);
+   const [showLocationManager, setShowLocationManager] = useState(false);
 
   // Guess State
   const [showGuessModal, setShowGuessModal] = useState(false);
@@ -115,6 +118,8 @@ function Lobby() {
       });
       socket.on('vote_update', (data) => setVotes(data));
       socket.on('eliminated_update', (data) => setEliminated(data));
+      socket.on('location_settings_update', (ids: string[]) => setDisabledLocationIds(ids));
+      socket.on('all_locations_list', (list: any[]) => setAllLocations(list));
 
       return () => {
         socket.off('lobby_update');
@@ -225,6 +230,77 @@ function Lobby() {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Location Manager Modal */}
+      {showLocationManager && (
+         <div className="modal-overlay" style={{ zIndex: 1000 }} onClick={() => setShowLocationManager(false)}>
+           <div className="modal-content" style={{ maxWidth: '500px', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }} onClick={e => e.stopPropagation()}>
+             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h2 style={{ fontSize: '20px', color: 'var(--color-matcha-deep)' }}>{t('manage_locations')}</h2>
+                <button className="secondary-btn" style={{ width: 'auto', padding: '4px 8px' }} onClick={() => setShowLocationManager(false)}>✕</button>
+             </div>
+             
+             <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+                <button 
+                   className="secondary-btn" 
+                   style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}
+                   onClick={() => {
+                      allLocations.forEach(loc => {
+                        if (disabledLocationIds.includes(loc.id)) {
+                           socket?.emit('toggle_location', { roomId, locationId: loc.id });
+                        }
+                      });
+                   }}
+                >
+                  {t('select_all')}
+                </button>
+                <button 
+                   className="secondary-btn" 
+                   style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}
+                   onClick={() => {
+                      allLocations.forEach(loc => {
+                        if (!disabledLocationIds.includes(loc.id)) {
+                           socket?.emit('toggle_location', { roomId, locationId: loc.id });
+                        }
+                      });
+                   }}
+                >
+                  {t('deselect_all')}
+                </button>
+             </div>
+
+             <div style={{ flex: 1, overflowY: 'auto', paddingRight: '8px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                   {allLocations.map(loc => {
+                     const isDisabled = disabledLocationIds.includes(loc.id);
+                     return (
+                       <div 
+                         key={loc.id} 
+                         onClick={() => socket?.emit('toggle_location', { roomId, locationId: loc.id })}
+                         style={{ 
+                           padding: '8px 12px', 
+                           background: isDisabled ? '#f8f8f8' : 'var(--color-matcha-light)', 
+                           border: `1px solid ${isDisabled ? '#ddd' : 'var(--color-matcha-base)'}`,
+                           borderRadius: '6px',
+                           cursor: 'pointer',
+                           opacity: isDisabled ? 0.6 : 1,
+                           display: 'flex',
+                           alignItems: 'center',
+                           transition: 'all 0.2s'
+                         }}
+                       >
+                         <input type="checkbox" checked={!isDisabled} readOnly style={{ marginRight: '8px' }} />
+                         <span style={{ fontSize: '13px', fontWeight: isDisabled ? 400 : 500 }}>{loc[`name_${currentLang}`]}</span>
+                       </div>
+                     );
+                   })}
+                </div>
+             </div>
+             
+             <button className="primary-btn mt-6" onClick={() => setShowLocationManager(false)} style={{ marginTop: '20px' }}>{t('close')}</button>
+           </div>
+         </div>
       )}
 
       {/* Rules Modal */}
@@ -338,6 +414,14 @@ function Lobby() {
                     </div>
 
                     <button onClick={startGame} className="primary-btn pulse-hover">{t('start_game')}</button>
+                    
+                    <button 
+                      onClick={() => setShowLocationManager(true)} 
+                      className="secondary-btn mt-4" 
+                      style={{ width: '100%', borderStyle: 'dashed', borderColor: 'var(--color-matcha-base)' }}
+                    >
+                      🗺️ {t('manage_locations')} ({allLocations.length - disabledLocationIds.length}/{allLocations.length})
+                    </button>
                   </div>
                 )}
                 

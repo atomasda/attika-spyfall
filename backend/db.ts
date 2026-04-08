@@ -357,9 +357,20 @@ export function seedDatabase() {
   console.log("Seeding complete. Inserted 30 locations!");
 }
 
-export function getRandomLocationRoles() {
-  const locStmt = db.prepare('SELECT * FROM locations ORDER BY RANDOM() LIMIT 1');
-  const location = locStmt.get() as any;
+export function getRandomLocationRoles(excludedIds: string[] = []) {
+  let query = 'SELECT * FROM locations';
+  const params: any[] = [];
+  
+  if (excludedIds.length > 0) {
+    const placeholders = excludedIds.map(() => '?').join(',');
+    query += ` WHERE id NOT IN (${placeholders})`;
+    params.push(...excludedIds);
+  }
+  
+  query += ' ORDER BY RANDOM() LIMIT 1';
+  
+  const locStmt = db.prepare(query);
+  const location = locStmt.get(...params) as any;
   if (!location) return null;
 
   const roleStmt = db.prepare('SELECT * FROM roles WHERE location_id = ?');

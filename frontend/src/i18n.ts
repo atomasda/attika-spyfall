@@ -65,7 +65,12 @@ const resources = {
       "eliminated_hint": "You can no longer vote, accuse, or participate. Wait for the game to end!",
       "pause_accuse_btn": "PAUSE & ACCUSE (Vote to catch Spy)",
       "reveal_guess_btn": "REVEAL & GUESS LOCATION",
-      "eliminated_status_label": "Eliminated"
+      "eliminated_status_label": "Eliminated",
+      "manage_locations": "Manage Locations",
+      "active_locations": "Active Locations",
+      "select_all": "Select All",
+      "deselect_all": "Deselect All",
+      "close": "Close"
     }
   },
   th: {
@@ -131,7 +136,12 @@ const resources = {
       "eliminated_hint": "คุณไม่สามารถโหวต หรือทำกิจกรรมใดๆ ได้อีก โปรดรอจนกว่าจะจบเกม",
       "pause_accuse_btn": "หยุดเวลาเพื่อโหวต (จับสปาย)",
       "reveal_guess_btn": "เผยตัวและทายสถานที่",
-      "eliminated_status_label": "ตกรอบ"
+      "eliminated_status_label": "ตกรอบ",
+      "manage_locations": "จัดการสถานที่",
+      "active_locations": "สถานที่ที่เลือก",
+      "select_all": "เลือกทั้งหมด",
+      "deselect_all": "ไม่เลือกทั้งหมด",
+      "close": "ปิด"
     }
   },
   zh: {
@@ -197,7 +207,12 @@ const resources = {
       "eliminated_hint": "你不能再投票或参与。请等待游戏结束！",
       "pause_accuse_btn": "暂停并指控（投票抓卧底）",
       "reveal_guess_btn": "自首并猜测地点",
-      "eliminated_status_label": "已淘汰"
+      "eliminated_status_label": "已淘汰",
+      "manage_locations": "管理地点",
+      "active_locations": "正选地点",
+      "select_all": "全选",
+      "deselect_all": "全不选",
+      "close": "关闭"
     }
   }
 };

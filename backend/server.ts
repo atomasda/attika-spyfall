@@ -38,6 +38,7 @@ type Room = {
   selectedLocation?: any;
   votes: Record<string, string>; // voterId -> votedPlayerId
   eliminatedPlayers: string[]; // List of IDs who are eliminated
+  disabledLocationIds: string[];
 };
 
 const rooms = new Map<string, Room>();
@@ -50,7 +51,7 @@ io.on('connection', (socket: Socket) => {
 
     let room = rooms.get(roomId);
     if (!room) {
-      room = { roomId, players: [], status: 'lobby', votes: {}, eliminatedPlayers: [] };
+      room = { roomId, players: [], status: 'lobby', votes: {}, eliminatedPlayers: [], disabledLocationIds: [] };
       rooms.set(roomId, room);
     }
 
@@ -60,6 +61,7 @@ io.on('connection', (socket: Socket) => {
       existingPlayer.id = socket.id; 
       callback({ success: true, players: room.players, status: room.status });
       io.to(roomId).emit('lobby_update', room.players);
+      io.to(socket.id).emit('location_settings_update', room.disabledLocationIds);
       
       if (room.status !== 'lobby') {
         io.to(roomId).emit('game_status', room.status);
@@ -70,7 +72,7 @@ io.on('connection', (socket: Socket) => {
           isSpy: existingPlayer.isSpy,
           location: existingPlayer.isSpy ? null : room.selectedLocation,
           role: existingPlayer.isSpy ? null : existingPlayer.role,
-          allLocations: existingPlayer.isSpy ? getAllLocations() : null
+          allLocations: existingPlayer.isSpy ? getAllLocations().filter(l => !room.disabledLocationIds.includes(l.id)) : null
         };
         io.to(socket.id).emit('secret_role_assigned', payload);
       }
@@ -82,7 +84,12 @@ io.on('connection', (socket: Socket) => {
 
     room.players.push(newPlayer);
     callback({ success: true, players: room.players, status: room.status });
+    
     io.to(roomId).emit('lobby_update', room.players);
+    io.to(socket.id).emit('location_settings_update', room.disabledLocationIds);
+    if (isHost) {
+      io.to(socket.id).emit('all_locations_list', getAllLocations());
+    }
     
     if (room.status !== 'lobby') io.to(roomId).emit('game_status', room.status);
   });
@@ -96,7 +103,7 @@ io.on('connection', (socket: Socket) => {
     room.startTime = Date.now();
     room.eliminatedPlayers = [];
 
-    const result = getRandomLocationRoles();
+    const result = getRandomLocationRoles(room.disabledLocationIds);
     if (!result) return;
     
     room.selectedLocation = result.location;
@@ -136,10 +143,24 @@ io.on('connection', (socket: Socket) => {
         isSpy: p.isSpy,
         location: p.isSpy ? null : room.selectedLocation,
         role: p.isSpy ? null : p.role,
-        allLocations: p.isSpy ? allLocations : null
+        allLocations: p.isSpy ? getAllLocations().filter(l => !room.disabledLocationIds.includes(l.id)) : null
       };
       io.to(p.id).emit('secret_role_assigned', payload);
     });
+  });
+
+  socket.on('toggle_location', ({ roomId, locationId }) => {
+    const room = rooms.get(roomId);
+    if (!room) return;
+    
+    const index = room.disabledLocationIds.indexOf(locationId);
+    if (index === -1) {
+      room.disabledLocationIds.push(locationId);
+    } else {
+      room.disabledLocationIds.splice(index, 1);
+    }
+    
+    io.to(roomId).emit('location_settings_update', room.disabledLocationIds);
   });
 
   // MILESTONE 4: Voting & Guessing mechanics
