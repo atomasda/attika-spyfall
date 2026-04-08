@@ -62,6 +62,9 @@ io.on('connection', (socket: Socket) => {
       callback({ success: true, players: room.players, status: room.status });
       io.to(roomId).emit('lobby_update', room.players);
       io.to(socket.id).emit('location_settings_update', room.disabledLocationIds);
+      if (existingPlayer.isHost) {
+        io.to(socket.id).emit('all_locations_list', getAllLocations());
+      }
       
       if (room.status !== 'lobby') {
         io.to(roomId).emit('game_status', room.status);
