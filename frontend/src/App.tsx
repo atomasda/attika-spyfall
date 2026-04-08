@@ -283,13 +283,13 @@ function Lobby() {
                   <div style={{ flex: 1, height: '1px', background: 'var(--color-matcha-base)', opacity: 0.3 }}></div>
                 </div>
 
-                <button onClick={handleCreateNewRoom} className="secondary-btn" style={{ width: '100%' }}>CREATE NEW ROOM</button>
+                <button onClick={handleCreateNewRoom} className="secondary-btn" style={{ width: '100%' }}>{t('create_room')}</button>
               </>
             ) : (
               <div>
                 <div className="mb-6" style={{ background: 'var(--color-matcha-light)', padding: '16px', borderRadius: 'var(--border-radius-md)' }}>
                   <h3 className="mb-4" style={{ display: 'flex', justifyContent: 'space-between'}}>
-                    <span>Players Joined:</span> <span>{players.length}</span>
+                    <span>{t('players_joined')}</span> <span>{players.length}</span>
                   </h3>
                   <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '250px', overflowY: 'auto' }}>
                     {players.map((p, idx) => {
@@ -306,7 +306,7 @@ function Lobby() {
 
                   {!amIHost && (
                     <div className="mt-4 text-center pulse-hover" style={{ color: 'var(--color-text-light)', fontSize: '14px', marginTop: '16px' }}>
-                       ⏳ Loading Spinner... Waiting for Host
+                       ⏳ {t('waiting_host_hint')}
                     </div>
                   )}
                 </div>
@@ -315,29 +315,29 @@ function Lobby() {
                   <div className="mb-6">
                     <div style={{ display: 'flex', alignItems: 'center', margin: '24px 0 16px 0' }}>
                       <div style={{ flex: 1, height: '1px', background: 'var(--color-matcha-base)', opacity: 0.3 }}></div>
-                      <span style={{ padding: '0 10px', color: 'var(--color-text-light)', fontSize: '13px', fontWeight: 600 }}>Host Settings (Visible to Host only)</span>
+                      <span style={{ padding: '0 10px', color: 'var(--color-text-light)', fontSize: '13px', fontWeight: 600 }}>{t('host_settings')}</span>
                       <div style={{ flex: 1, height: '1px', background: 'var(--color-matcha-base)', opacity: 0.3 }}></div>
                     </div>
                     
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                       <span style={{ fontWeight: 500 }}>Time Limit:</span>
+                       <span style={{ fontWeight: 500 }}>{t('time_limit')}</span>
                        <select className="input-field" style={{ width: 'auto', padding: '6px 12px' }} value={timeLimitMinutes} onChange={e => setTimeLimitMinutes(Number(e.target.value))}>
-                          <option value={3}>3 Minutes</option>
-                          <option value={5}>5 Minutes</option>
-                          <option value={7}>7 Minutes</option>
-                          <option value={10}>10 Minutes</option>
+                          <option value={3}>3 {t('min_label')}</option>
+                          <option value={5}>5 {t('min_label')}</option>
+                          <option value={7}>7 {t('min_label')}</option>
+                          <option value={10}>10 {t('min_label')}</option>
                        </select>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                       <span style={{ fontWeight: 500 }}>Spy Count:</span>
+                       <span style={{ fontWeight: 500 }}>{t('spy_count')}</span>
                        <select className="input-field" style={{ width: 'auto', padding: '6px 12px' }} value={spyCount} onChange={e => setSpyCount(Number(e.target.value))}>
-                          <option value={1}>1 Spy</option>
-                          <option value={2}>2 Spies</option>
-                          <option value={3}>3 Spies</option>
+                          <option value={1}>1 {t('spy_singular')}</option>
+                          <option value={2}>2 {t('spy_plural')}</option>
+                          <option value={3}>3 {t('spy_plural')}</option>
                        </select>
                     </div>
 
-                    <button onClick={startGame} className="primary-btn pulse-hover">START GAME</button>
+                    <button onClick={startGame} className="primary-btn pulse-hover">{t('start_game')}</button>
                   </div>
                 )}
                 
@@ -363,20 +363,20 @@ function Lobby() {
                   <div className="secret-card pop-anim">
                     {secretRole.isSpy ? (
                       <div>
-                        <h3 style={{ color: '#d9534f', fontSize: '28px', margin: '12px 0' }}>You are the... SPY! 🕵️</h3>
-                        <p style={{ color: 'var(--color-text-light)' }}>(Blend in and guess the location!)</p>
+                        <h3 style={{ color: '#d9534f', fontSize: '28px', margin: '12px 0' }}>{t('you_are_spy_reveal')}</h3>
+                        <p style={{ color: 'var(--color-text-light)' }}>{t('blend_in_hint')}</p>
                       </div>
                     ) : (
                       <div style={{ textAlign: 'left', minWidth: '200px' }}>
-                        <p className="mb-4" style={{ fontSize: '18px' }}><strong style={{ color: 'var(--color-matcha-deep)'}}>Location:</strong><br/> <span style={{fontSize: '22px'}}>{secretRole.location ? secretRole.location[`name_${currentLang}`] : ''}</span></p>
-                        <p style={{ fontSize: '18px' }}><strong style={{color: 'var(--color-matcha-deep)'}}>Role:</strong><br/> <span style={{fontSize: '22px'}}>{secretRole.role ? secretRole.role[`name_${currentLang}`] : ''}</span></p>
+                        <p className="mb-4" style={{ fontSize: '18px' }}><strong style={{ color: 'var(--color-matcha-deep)'}}>{t('location')}</strong><br/> <span style={{fontSize: '22px'}}>{secretRole.location ? secretRole.location[`name_${currentLang}`] : ''}</span></p>
+                        <p style={{ fontSize: '18px' }}><strong style={{color: 'var(--color-matcha-deep)'}}>{t('role')}</strong><br/> <span style={{fontSize: '22px'}}>{secretRole.role ? secretRole.role[`name_${currentLang}`] : ''}</span></p>
                       </div>
                     )}
                   </div>
                 ) : (
                   <div>
-                    <h3 style={{ fontWeight: 600, fontSize: '20px' }}>🔒 Hidden Info</h3>
-                    <p style={{ color: 'var(--color-text-light)', marginBottom: '32px' }}>Keep your screen hidden from others</p>
+                    <h3 style={{ fontWeight: 600, fontSize: '20px' }}>{t('hidden_info')}</h3>
+                    <p style={{ color: 'var(--color-text-light)', marginBottom: '32px' }}>{t('keep_hidden_hint')}</p>
                     <button 
                       className="primary-btn pulse-btn" 
                       onMouseDown={() => setIsRevealed(true)}
@@ -388,7 +388,7 @@ function Lobby() {
                         userSelect: 'none', WebkitUserSelect: 'none',
                         margin: '0 auto', padding: '20px', lineHeight: '1.4'
                       }}>
-                      PRESS AND HOLD<br/>TO REVEAL ROLE
+                      {t('press_hold_reveal')}
                     </button>
                   </div>
                 )}
@@ -396,14 +396,14 @@ function Lobby() {
 
             {socket?.id && eliminated.includes(socket.id) ? (
                <div style={{ marginTop: '20px', padding: '20px', background: '#ffebee', borderRadius: '8px', color: '#d9534f' }}>
-                  <h3 style={{ fontWeight: 'bold', marginBottom: '8px' }}>☠️ YOU ARE ELIMINATED</h3>
-                  <p>You can no longer vote, accuse, or participate. Wait for the game to end!</p>
+                  <h3 style={{ fontWeight: 'bold', marginBottom: '8px' }}>{t('eliminated_msg')}</h3>
+                  <p>{t('eliminated_hint')}</p>
                </div>
             ) : (
               <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                 <button onClick={triggerAccuse} className="secondary-btn" style={{ fontWeight: 'bold' }}>PAUSE & ACCUSE (Vote to catch Spy)</button>
+                 <button onClick={triggerAccuse} className="secondary-btn" style={{ fontWeight: 'bold' }}>{t('pause_accuse_btn')}</button>
                  {secretRole.isSpy && (
-                   <button onClick={() => setShowGuessModal(true)} className="primary-btn" style={{ fontWeight: 'bold' }}>REVEAL & GUESS LOCATION</button>
+                   <button onClick={() => setShowGuessModal(true)} className="primary-btn" style={{ fontWeight: 'bold' }}>{t('reveal_guess_btn')}</button>
                  )}
               </div>
             )}
@@ -425,7 +425,7 @@ function Lobby() {
                        <span style={{ fontWeight: 500, textDecoration: isEliminated ? 'line-through' : 'none' }}>{p.nickname} {isMe(p.id) ? `(${t('you')})` : ''} {isEliminated && '☠️'}</span>
                        <div>
                          {isEliminated ? (
-                           <span style={{ color: '#d9534f', fontWeight: 'bold' }}>Eliminated</span>
+                           <span style={{ color: '#d9534f', fontWeight: 'bold' }}>{t('eliminated_status_label')}</span>
                          ) : votes[socket?.id || ''] === p.id ? (
                            <span style={{ color: 'var(--color-matcha-deep)', fontWeight: 'bold' }}>{t('voted')}</span>
                          ) : (

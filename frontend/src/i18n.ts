@@ -46,7 +46,26 @@ const resources = {
       "rule_1": "Everyone receives the same location and role, except the Spy who knows nothing.",
       "rule_2": "Players ask questions to find the Spy without revealing the location.",
       "rule_3": "The Spy must blend in and try to guess the location from conversation.",
-      "rule_4": "Players win by catching the Spy; Spy wins by guessing the location or time out."
+      "rule_4": "Players win by catching the Spy; Spy wins by guessing the location or time out.",
+      "create_room": "Create New Room",
+      "players_joined": "Players Joined:",
+      "waiting_host_hint": "Waiting for Host",
+      "host_settings": "Host Settings (Visible to Host only)",
+      "time_limit": "Time Limit:",
+      "spy_count": "Spy Count:",
+      "min_label": "Minutes",
+      "spy_singular": "Spy",
+      "spy_plural": "Spies",
+      "hidden_info": "🔒 Hidden Info",
+      "keep_hidden_hint": "Keep your screen hidden from others",
+      "press_hold_reveal": "PRESS AND HOLD TO REVEAL ROLE",
+      "you_are_spy_reveal": "You are the... SPY! 🕵️",
+      "blend_in_hint": "(Blend in and guess the location!)",
+      "eliminated_msg": "☠️ YOU ARE ELIMINATED",
+      "eliminated_hint": "You can no longer vote, accuse, or participate. Wait for the game to end!",
+      "pause_accuse_btn": "PAUSE & ACCUSE (Vote to catch Spy)",
+      "reveal_guess_btn": "REVEAL & GUESS LOCATION",
+      "eliminated_status_label": "Eliminated"
     }
   },
   th: {
@@ -93,7 +112,26 @@ const resources = {
       "rule_1": "ทุกคนจะได้รับสถานที่เดียวกัน ยกเว้นสปายที่จะไม่รู้ว่าอยู่ที่ไหน",
       "rule_2": "พลเรือนต้องถามคำถามเพื่อหาตัวสปาย แต่ห้ามหลุดชื่อสถานที่เด็ดขาด!",
       "rule_3": "สปายต้องเนียนไปกับกลุ่ม และพยายามเดาสถานที่จากคำถามเพื่อน",
-      "rule_4": "พลเรือนชนะเมื่อโหวตสปายถูก; สปายชนะเมื่อทายสถานที่ถูกหรือพลเรือนแพ้"
+      "rule_4": "พลเรือนชนะเมื่อโหวตสปายถูก; สปายชนะเมื่อทายสถานที่ถูกหรือพลเรือนแพ้",
+      "create_room": "สร้างห้องใหม่",
+      "players_joined": "ผู้เล่นที่เข้าร่วม:",
+      "waiting_host_hint": "กำลังรอโฮสต์...",
+      "host_settings": "ตั้งค่าโฮสต์ (เห็นเฉพาะโฮสต์)",
+      "time_limit": "จำกัดเวลา:",
+      "spy_count": "จำนวนสปาย:",
+      "min_label": "นาที",
+      "spy_singular": "สปาย",
+      "spy_plural": "สปาย",
+      "hidden_info": "🔒 ข้อมูลปกปิด",
+      "keep_hidden_hint": "โปรดซ่อนหน้าจอของคุณจากผู้อื่น",
+      "press_hold_reveal": "กดค้างไว้เพื่อดูบทบาท",
+      "you_are_spy_reveal": "คุณคือ... สปาย! 🕵️",
+      "blend_in_hint": "(เนียนเข้าไว้ และพยายามเดาสถานที่!)",
+      "eliminated_msg": "☠️ คุณถูกคัดออกแล้ว",
+      "eliminated_hint": "คุณไม่สามารถโหวต หรือทำกิจกรรมใดๆ ได้อีก โปรดรอจนกว่าจะจบเกม",
+      "pause_accuse_btn": "หยุดเวลาเพื่อโหวต (จับสปาย)",
+      "reveal_guess_btn": "เผยตัวและทายสถานที่",
+      "eliminated_status_label": "ตกรอบ"
     }
   },
   zh: {
@@ -140,7 +178,26 @@ const resources = {
       "rule_1": "每个人都会收到相同的“地点”和“角色”，唯独卧底不知道。",
       "rule_2": "平民必须通过提问来找出卧底，但不能泄露地点信息！",
       "rule_3": "卧底必须潜伏在人群中，并试图从大家的谈话中猜出地点。",
-      "rule_4": "平民抓获卧底则胜，卧底猜对地点或平民人数少于卧底则胜。"
+      "rule_4": "平民抓获卧底则胜，卧底猜对地点或平民人数少于卧底则胜。",
+      "create_room": "创建新房间",
+      "players_joined": "已加入玩家：",
+      "waiting_host_hint": "正在等待房主...",
+      "host_settings": "房主设置（仅房主可见）",
+      "time_limit": "时间限制：",
+      "spy_count": "卧底人数：",
+      "min_label": "分钟",
+      "spy_singular": "名卧底",
+      "spy_plural": "名卧底",
+      "hidden_info": "🔒 隐藏信息",
+      "keep_hidden_hint": "请确保你的屏幕不被他人看见",
+      "press_hold_reveal": "长按以显示身份",
+      "you_are_spy_reveal": "你是... 卧底！🕵️",
+      "blend_in_hint": "（隐瞒身份并尝试猜测地点！）",
+      "eliminated_msg": "☠️ 你已被淘汰",
+      "eliminated_hint": "你不能再投票或参与。请等待游戏结束！",
+      "pause_accuse_btn": "暂停并指控（投票抓卧底）",
+      "reveal_guess_btn": "自首并猜测地点",
+      "eliminated_status_label": "已淘汰"
     }
   }
 };
