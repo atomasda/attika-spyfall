@@ -75,7 +75,7 @@ io.on('connection', (socket: Socket) => {
           isSpy: existingPlayer.isSpy,
           location: existingPlayer.isSpy ? null : room.selectedLocation,
           role: existingPlayer.isSpy ? null : existingPlayer.role,
-          allLocations: existingPlayer.isSpy ? getAllLocations().filter(l => !room.disabledLocationIds.includes(l.id)) : null
+          allLocations: existingPlayer.isSpy ? (getAllLocations() as any[]).filter(l => !room.disabledLocationIds.includes(l.id)) : null
         };
         io.to(socket.id).emit('secret_role_assigned', payload);
       }
@@ -146,7 +146,7 @@ io.on('connection', (socket: Socket) => {
         isSpy: p.isSpy,
         location: p.isSpy ? null : room.selectedLocation,
         role: p.isSpy ? null : p.role,
-        allLocations: p.isSpy ? getAllLocations().filter(l => !room.disabledLocationIds.includes(l.id)) : null
+        allLocations: p.isSpy ? (getAllLocations() as any[]).filter(l => !room.disabledLocationIds.includes(l.id)) : null
       };
       io.to(p.id).emit('secret_role_assigned', payload);
     });
