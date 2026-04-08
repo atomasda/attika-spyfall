@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate, useSearchParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { io, Socket } from 'socket.io-client'
 
@@ -358,7 +358,7 @@ function Lobby() {
                 )}
             </div>
 
-            {eliminated.includes(socket.id) ? (
+            {socket?.id && eliminated.includes(socket.id) ? (
                <div style={{ marginTop: '20px', padding: '20px', background: '#ffebee', borderRadius: '8px', color: '#d9534f' }}>
                   <h3 style={{ fontWeight: 'bold', marginBottom: '8px' }}>☠️ YOU ARE ELIMINATED</h3>
                   <p>You can no longer vote, accuse, or participate. Wait for the game to end!</p>
